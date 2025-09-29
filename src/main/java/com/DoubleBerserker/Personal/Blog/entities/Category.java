@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Table(name = "tags")
+@Table(name = "categories")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
