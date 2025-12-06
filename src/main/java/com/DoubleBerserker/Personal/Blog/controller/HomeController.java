@@ -1,13 +1,16 @@
 package com.DoubleBerserker.Personal.Blog.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class HomeController {
 
     @GetMapping({"/", "/home"})
-    public String index() {
-        return "Hello World";
+    public String home(Model model) {
+        model.addAttribute("title", "Harsh's Blog");
+        return "homepage";
     }
+
 }
