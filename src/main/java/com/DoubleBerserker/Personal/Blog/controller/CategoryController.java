@@ -21,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-    @GetMapping("/getPosts")
+    @GetMapping("/getCategories")
     public ResponseEntity<List<CategoryDto>> listCategories() {
         List<CategoryDto> categories = categoryService.listCategories().stream()
                 .map(categoryMapper::toDto)

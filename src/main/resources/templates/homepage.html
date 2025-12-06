@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1 th:text="${title}"></h1>
-    <a href="{/home}"> HOME </a>
-    <a href="{/categories}"> CATEGORIES </a>
-    <a href="{/posts}"> POSTS </a>
-    <a href="{/about}"> ABOUT </a>
+
+    <div th:replace="fragments/header :: blogHeader"> </div>
+
+    <h2> Latest Posts </h2>
+    <div th:each="post : ${posts}"></div>
 </body>
 </html>

@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="blogHeader">
+
+    <h1> Personal Blog </h1>
+
+    <nav class="navbar">
+        <ul class="nav-list">
+
+            <!-- HOME -->
+            <li th:classappend="${activePage == 'home'} ? 'active' : ''">
+                <a th:href="@{/home}">Home</a>
+            </li>
+
+            <!-- POSTS -->
+            <li th:classappend="${activePage == 'post'} ? 'active' : ''">
+                <a th:href="@{/posts}">Posts</a>
+            </li>
+
+            <!-- ABOUT -->
+            <li th:classappend="${activePage == 'about'} ? 'active' : ''">
+                <a th:href="@{/about}">About</a>
+            </li>
+
+        </ul>
+    </nav>
+
+</header>
+
+</html>

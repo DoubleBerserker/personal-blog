@@ -9,12 +9,12 @@ import java.util.UUID;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+@AllArgsConstructor
+public class PostDto {
 
     private UUID id;
-    private String name;
-    private long postCount;
+    private String title;
+    private String content;
 
 }
