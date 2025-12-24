@@ -10,9 +10,9 @@ public class HomeController {
     @GetMapping({"/", "/home"})
     public String home(Model model) {
         model.addAttribute("activePage", "home");
-        model.addAttribute("title", "Harsh's Blog");
-//        model.addAttribute("posts")
-        return "homepage";
+        model.addAttribute("title", "Home");
+        model.addAttribute("page", "homepage");
+        return "base";
     }
 
 }

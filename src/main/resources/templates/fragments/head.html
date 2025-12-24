@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragment="head(title)">    <!-- Getting title from model in controller, DO NOT FORGET TO PASS or do idc -->
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <title th:text="${title}">Personal Blog</title>
+</head>
+
+</html>
