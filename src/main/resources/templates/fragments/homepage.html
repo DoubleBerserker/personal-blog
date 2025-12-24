@@ -3,6 +3,10 @@
 
 <article th:fragment="homepage">
     <h2> LATEST POSTS </h2>
+    <div th:each="post : ${latestPosts}">
+        <a th:href="@{/posts/{id}(id=${post.id})}"><h3 th:text="${post.title}"> </h3></a>
+        <p th:text="${post.content}"></p>
+    </div>
 </article>
 
 </html>
