@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<header th:fragment="blogHeader">
+<header th:classappend="blog-header" th:fragment="blogHeader">
 
-    <h1> Personal Blog </h1>
+    <h1 th:classappend="blog-title"> Personal Blog </h1>
 
-    <nav class="navbar">
+    <nav class="blog-nav">
         <ul class="nav-list">
 
             <!-- HOME -->

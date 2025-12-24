@@ -6,9 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
     <div th:replace="fragments/header :: blogHeader"> </div>
-
     <h2> Latest Posts </h2>
     <div th:each="post : ${posts}"></div>
 </body>
