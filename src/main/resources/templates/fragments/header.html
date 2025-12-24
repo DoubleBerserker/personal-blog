@@ -9,17 +9,17 @@
         <ul class="nav-list">
 
             <!-- HOME -->
-            <li th:classappend="${activePage == 'home'} ? 'active' : ''">
+            <li th:classappend="${page == 'homepage'} ? 'active' : ''">
                 <a th:href="@{/home}">Home</a>
             </li>
 
             <!-- POSTS -->
-            <li th:classappend="${activePage == 'post'} ? 'active' : ''">
+            <li th:classappend="${page == 'allPosts' || page == 'post'} ? 'active' : ''">
                 <a th:href="@{/posts}">Posts</a>
             </li>
 
             <!-- ABOUT -->
-            <li th:classappend="${activePage == 'about'} ? 'active' : ''">
+            <li th:classappend="${page == 'about'} ? 'active' : ''">
                 <a th:href="@{/about}">About</a>
             </li>
 

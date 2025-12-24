@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <article th:fragment="post">
-  <h2> ALL POSTS </h2>
+  <h1 th:text="${post.title}"> </h1>
+  <p th:text="${post.content}"></p>
 </article>
 
 </html>
