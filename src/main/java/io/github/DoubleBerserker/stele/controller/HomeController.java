@@ -3,6 +3,7 @@ package io.github.DoubleBerserker.stele.controller;
 import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.enums.PageNameEnum;
 import io.github.DoubleBerserker.stele.services.PostService;
+import io.github.DoubleBerserker.stele.utils.ModelAttributeHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +24,9 @@ public class HomeController {
         String pageHeadTitle = "Home";
 
         List<PostSummaryDto> latestPosts = postService.getLatestPosts(numberOfLatestPostsToShow);
-
         model.addAttribute("latestPosts", latestPosts);
 
-        // Page structure attributes
-        model.addAttribute("title", pageHeadTitle);
-        model.addAttribute("page", PageNameEnum.HOMEPAGE.value);
-
+        ModelAttributeHelper.addPageAttributes(model, pageHeadTitle, PageNameEnum.HOMEPAGE.value);
         return PageNameEnum.BASE.value;
     }
 
@@ -37,10 +34,7 @@ public class HomeController {
     public String getAboutPage(Model model) {
         String pageHeadTitle = "About";
 
-        // Page structure attributes
-        model.addAttribute("title", pageHeadTitle);
-        model.addAttribute("page", PageNameEnum.ABOUT.value);
-
+        ModelAttributeHelper.addPageAttributes(model, pageHeadTitle, PageNameEnum.ABOUT.value);
         return PageNameEnum.BASE.value;
     }
 

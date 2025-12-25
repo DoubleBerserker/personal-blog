@@ -4,6 +4,7 @@ import io.github.DoubleBerserker.stele.dto.PostResponseDto;
 import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.enums.PageNameEnum;
 import io.github.DoubleBerserker.stele.services.PostService;
+import io.github.DoubleBerserker.stele.utils.ModelAttributeHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,10 +38,7 @@ public class PostController {
 
         model.addAttribute("posts", posts);
 
-        // Page structure attributes
-        model.addAttribute("title", pageHeadTitle);
-        model.addAttribute("page", PageNameEnum.POSTS_MAIN_PAGE.value);
-
+        ModelAttributeHelper.addPageAttributes(model, pageHeadTitle, PageNameEnum.POSTS_MAIN_PAGE.value);
         return PageNameEnum.BASE.value;
     }
 
@@ -48,13 +46,9 @@ public class PostController {
     public String getPostPage(Model model, @PathVariable String id) {
 
         PostResponseDto post = postService.getPostById(id);
-
         model.addAttribute("post", post);
 
-        // Page structure attributes
-        model.addAttribute("title", post.title());
-        model.addAttribute("page", PageNameEnum.POST.value);
-
+        ModelAttributeHelper.addPageAttributes(model, post.title(), PageNameEnum.POST.value);
         return PageNameEnum.BASE.value;
     }
 
