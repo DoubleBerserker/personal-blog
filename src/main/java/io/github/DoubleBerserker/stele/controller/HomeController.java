@@ -1,6 +1,7 @@
 package io.github.DoubleBerserker.stele.controller;
 
-import io.github.DoubleBerserker.stele.dto.PostDto;
+import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
+import io.github.DoubleBerserker.stele.enums.PageNameEnum;
 import io.github.DoubleBerserker.stele.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,23 +18,30 @@ public class HomeController {
 
     @GetMapping({"/", "/home"})
     public String getHomepage(Model model) {
-        List<PostDto> latestPosts = postService.getLatestPosts(2);
+
+        int numberOfLatestPostsToShow = 2;
+        String pageHeadTitle = "Home";
+
+        List<PostSummaryDto> latestPosts = postService.getLatestPosts(numberOfLatestPostsToShow);
 
         model.addAttribute("latestPosts", latestPosts);
 
-        // Page Structure
-        model.addAttribute("activePage", "home");
-        model.addAttribute("title", "Home");
-        model.addAttribute("page", "homepage");
-        return "base";
+        // Page structure attributes
+        model.addAttribute("title", pageHeadTitle);
+        model.addAttribute("page", PageNameEnum.HOMEPAGE.value);
+
+        return PageNameEnum.BASE.value;
     }
 
     @GetMapping("/about")
     public String getAboutPage(Model model) {
-        model.addAttribute("activePage", "about");
-        model.addAttribute("title", "About");
-        model.addAttribute("page", "about");
-        return "base";
+        String pageHeadTitle = "About";
+
+        // Page structure attributes
+        model.addAttribute("title", pageHeadTitle);
+        model.addAttribute("page", PageNameEnum.ABOUT.value);
+
+        return PageNameEnum.BASE.value;
     }
 
 }
