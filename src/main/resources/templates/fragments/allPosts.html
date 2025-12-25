@@ -3,6 +3,10 @@
 
 <article th:fragment="allPosts">
   <h2> ALL POSTS </h2>
+  <div th:each="post : ${posts}">
+    <h3 th:text="${post.title}"></h3>
+    <p th:text="${post.content}"></p>
+  </div>
 </article>
 
 </html>

@@ -3,6 +3,9 @@
 
 <article th:fragment="post">
   <h1 th:text="${post.title}"> </h1>
+  <a th:href="@{/category/{id}(id=${post.category.id})}"><p th:text="|Category: ${post.category.name}|"></p></a>
+  <p th:text="|Created At: ${post.createdAt}|"></p>
+  <p th:text="|Updated At: ${post.createdAt}|"></p>
   <p th:text="${post.content}"></p>
 </article>
 
