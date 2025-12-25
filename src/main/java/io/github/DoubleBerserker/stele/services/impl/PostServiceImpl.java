@@ -72,7 +72,7 @@ public class PostServiceImpl implements PostService {
                 CategoryDto.builder()
                         .id(post.getCategory().getId())
                         .name(post.getCategory().getName())
-                        .postCount(post.getCategory().getPosts() != null ? post.getCategory().getPosts().size() : 0)
+                        .postCount(0) // Avoid accessing lazy-loaded posts collection here to prevent N+1 queries
                         .build()
         );
     }
