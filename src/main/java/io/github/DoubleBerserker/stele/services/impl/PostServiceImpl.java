@@ -1,5 +1,6 @@
 package io.github.DoubleBerserker.stele.services.impl;
 
+import io.github.DoubleBerserker.stele.dto.CategoryDto;
 import io.github.DoubleBerserker.stele.dto.PostResponseDto;
 import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.entities.Post;
@@ -33,7 +34,7 @@ public class PostServiceImpl implements PostService {
             return null;
         }
 
-        return post.map(this::convertPostEntityToResponse)
+        return post.map(this::mapPostEntityToResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Post not found"));
     }
 
@@ -53,13 +54,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<PostResponseDto> getLatestPostsByOffset(Pageable pageable) {
 
         // Gets a Page<Post> object from repository which is mapped to Page<PostResponseDto>. Convert to exploded form if it gets confusing
-        return postRepository.findAll(pageable).map(this::convertPostEntityToResponse);
+        return postRepository.findAll(pageable).map(this::mapPostEntityToResponse);
     }
 
-    private PostResponseDto convertPostEntityToResponse(Post post) {
+    private PostResponseDto mapPostEntityToResponse(Post post) {
         return new PostResponseDto(
                 post.getId(),
                 post.getTitle(),
@@ -67,7 +69,11 @@ public class PostServiceImpl implements PostService {
                 post.getStatus(),
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
-                post.getCategory()
+                CategoryDto.builder()
+                        .id(post.getCategory().getId())
+                        .name(post.getCategory().getName())
+                        .postCount(post.getCategory().getPosts() != null ? post.getCategory().getPosts().size() : 0)
+                        .build()
         );
     }
 

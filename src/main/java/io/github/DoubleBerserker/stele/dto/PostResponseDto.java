@@ -1,11 +1,12 @@
 package io.github.DoubleBerserker.stele.dto;
 
-import io.github.DoubleBerserker.stele.entities.Category;
 import io.github.DoubleBerserker.stele.entities.Status;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
 public record PostResponseDto(
         UUID id,
         String title,
@@ -13,5 +14,5 @@ public record PostResponseDto(
         Status status,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Category category
+        CategoryDto category
 ) {}
