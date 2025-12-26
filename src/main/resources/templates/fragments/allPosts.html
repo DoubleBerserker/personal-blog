@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <article th:fragment="allPosts">
-  <h2> ALL POSTS </h2>
-  <div th:each="post : ${posts}">
+  <h2 style="text-align: center;"> ALL POSTS </h2>
+  <div th:each="post : ${posts}" style="margin-right: 25%; margin-left: 25%; align-content: center;">
     <a th:href="@{/posts/{id}(id=${post.id})}"><h3 th:text="${post.title}"></h3></a>
-    <p th:text="|Created At: ${post.createdAt} Updated At: ${post.updatedAt}"></p>
+    <p th:text="|Created At: ${post.createdAt} ${'|'} Updated At: ${post.updatedAt}|"></p>
     <a th:href="@{/category/{id}(id=${post.category.id})}"><p th:text="|Category - ${post.category.name}|"></p></a>
     <p th:text="${post.content}"></p>
+    <hr>
   </div>
 </article>
 

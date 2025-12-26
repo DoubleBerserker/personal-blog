@@ -4,10 +4,13 @@ import io.github.DoubleBerserker.stele.dto.CategoryDto;
 import io.github.DoubleBerserker.stele.dto.PostResponseDto;
 import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.entities.Post;
+import io.github.DoubleBerserker.stele.mappers.PostMapper;
 import io.github.DoubleBerserker.stele.repositories.PostRepository;
+import io.github.DoubleBerserker.stele.services.MarkdownService;
 import io.github.DoubleBerserker.stele.services.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +26,8 @@ import java.util.UUID;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final MarkdownService markdownService;
+    private final PostMapper postMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -30,16 +35,12 @@ public class PostServiceImpl implements PostService {
 
         Optional<Post> post = postRepository.findById(UUID.fromString(id));
 
-        if (post.isEmpty()) {
-            return null;
-        }
-
-        return post.map(this::mapPostEntityToResponse)
+        return post.map(postMapper::postToPostResponseDto)
                 .orElseThrow(() -> new EntityNotFoundException("Post not found"));
     }
 
     @Override
-    public List<PostSummaryDto> getLatestPosts(Integer numberOfPosts) {
+    public List<PostSummaryDto> getLatestPostsSummarized(Integer numberOfPosts) {
 
         List<PostSummaryDto> latestPosts = List.of();
         if (numberOfPosts == 0) {
@@ -58,14 +59,14 @@ public class PostServiceImpl implements PostService {
     public Page<PostResponseDto> getLatestPostsByOffset(Pageable pageable) {
 
         // Gets a Page<Post> object from repository which is mapped to Page<PostResponseDto>. Convert to exploded form if it gets confusing
-        return postRepository.findAll(pageable).map(this::mapPostEntityToResponse);
+        return postRepository.findAll(pageable).map(postMapper::postToPostResponseDto);
     }
 
     private PostResponseDto mapPostEntityToResponse(Post post) {
         return new PostResponseDto(
                 post.getId(),
                 post.getTitle(),
-                post.getContent(),
+                markdownService.convertMarkdownToHtml(post.getContent()),
                 post.getStatus(),
                 post.getCreatedAt(),
                 post.getUpdatedAt(),

@@ -11,7 +11,7 @@ public interface PostService {
 
     PostResponseDto getPostById(String id);
 
-    List<PostSummaryDto> getLatestPosts(Integer numberOfPosts);
+    List<PostSummaryDto> getLatestPostsSummarized(Integer numberOfPosts);
 
     Page<PostResponseDto> getLatestPostsByOffset(Pageable pageable);
 

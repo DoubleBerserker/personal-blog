@@ -1,7 +1,6 @@
 package io.github.DoubleBerserker.stele.controller;
 
 import io.github.DoubleBerserker.stele.dto.PostResponseDto;
-import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.enums.PageNameEnum;
 import io.github.DoubleBerserker.stele.services.PostService;
 import io.github.DoubleBerserker.stele.utils.ModelAttributeHelper;

@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

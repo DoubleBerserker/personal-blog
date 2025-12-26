@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Table(name = "categories")
+@Table(name = "category")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
