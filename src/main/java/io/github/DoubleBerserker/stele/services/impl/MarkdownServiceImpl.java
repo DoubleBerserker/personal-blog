@@ -17,7 +17,7 @@ public class MarkdownServiceImpl implements MarkdownService {
     @Named(value = "toHtml")
     public String convertMarkdownToHtml(String markdownText) {
 
-        if(markdownText == null)
+        if (markdownText == null)
             return "";
 
         Node node = parser.parse(markdownText);
