@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <article th:fragment="homepage">
-    <h2> LATEST POSTS </h2>
-    <div th:each="post : ${latestPosts}">
+    <h2 style="text-align: center;"> LATEST POSTS </h2>
+    <div style="align-content: center; margin-left: 25%; margin-right: 25%;" th:each="post : ${latestPosts}">
         <a th:href="@{/posts/{id}(id=${post.id})}"><h3 th:text="${post.title}"> </h3></a>
         <p th:text="${post.content}"></p>
     </div>

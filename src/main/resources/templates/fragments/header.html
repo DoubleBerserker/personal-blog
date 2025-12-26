@@ -3,7 +3,7 @@
 
 <header th:classappend="blog-header" th:fragment="blogHeader">
 
-    <h1 th:classappend="blog-title"> Personal Blog </h1>
+    <h1 th:classappend="blog-title" th:text="${@environment.getProperty('blog.name')}"> Personal Blog </h1>
 
     <nav class="blog-nav">
         <ul class="nav-list">
