@@ -24,8 +24,8 @@ public class HomeController {
         int numberOfLatestPostsToShow = 2;
         String pageHeadTitle = "Home";
 
-        List<PostSummaryDto> latestPosts = postService.getLatestPostsSummarized(numberOfLatestPostsToShow);
-        model.addAttribute("latestPosts", latestPosts);
+        List<PostSummaryDto> latestPostSummaries = postService.getLatestPostsSummarized(numberOfLatestPostsToShow);
+        model.addAttribute("latestPosts", latestPostSummaries);
 
         ModelAttributeHelper.addPageAttributes(model, pageHeadTitle, PageNameEnum.HOMEPAGE.value);
         return PageNameEnum.BASE.value;
