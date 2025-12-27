@@ -43,7 +43,7 @@ public class PostServiceImpl implements PostService {
     public List<PostSummaryDto> getLatestPostsSummarized(Integer numberOfPosts) {
 
         if (numberOfPosts == 0) {
-            return null;
+            return List.of();
             // TODO If numberOfPosts == 0, return all the posts?? Or maybe a certain preset MAX
         }
 
