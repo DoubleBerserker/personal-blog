@@ -4,6 +4,7 @@ import io.github.DoubleBerserker.stele.services.MarkdownService;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.commonmark.renderer.text.TextContentRenderer;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class MarkdownServiceImpl implements MarkdownService {
 
     private final Parser parser = Parser.builder().build();
+    private final TextContentRenderer textContentRenderer = TextContentRenderer.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
 
     @Override
@@ -22,5 +24,17 @@ public class MarkdownServiceImpl implements MarkdownService {
 
         Node node = parser.parse(markdownText);
         return renderer.render(node);
+    }
+
+    @Override
+    @Named(value = "toPlaintext")
+    public String convertMarkdownToPlaintext(String markdownText) {
+
+        if (markdownText == null) {
+            return "";
+        }
+
+        Node node = parser.parse(markdownText);
+        return textContentRenderer.render(node);
     }
 }

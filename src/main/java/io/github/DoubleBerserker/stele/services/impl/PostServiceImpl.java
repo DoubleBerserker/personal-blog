@@ -5,6 +5,7 @@ import io.github.DoubleBerserker.stele.dto.PostResponseDto;
 import io.github.DoubleBerserker.stele.dto.PostSummaryDto;
 import io.github.DoubleBerserker.stele.entities.Post;
 import io.github.DoubleBerserker.stele.mappers.PostMapper;
+import io.github.DoubleBerserker.stele.projections.PostSummaryProjection;
 import io.github.DoubleBerserker.stele.repositories.PostRepository;
 import io.github.DoubleBerserker.stele.services.MarkdownService;
 import io.github.DoubleBerserker.stele.services.PostService;
@@ -41,16 +42,20 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostSummaryDto> getLatestPostsSummarized(Integer numberOfPosts) {
 
-        List<PostSummaryDto> latestPosts = List.of();
         if (numberOfPosts == 0) {
-            return latestPosts;
+            return null;
             // TODO If numberOfPosts == 0, return all the posts?? Or maybe a certain preset MAX
         }
 
         Pageable pageable = PageRequest.of(0, numberOfPosts);
-        latestPosts = postRepository.findLatestPostsByNumberOfPosts(pageable);
+        List<PostSummaryProjection> latestPosts = postRepository.findAllBy(pageable);
 
-        return latestPosts;
+        return latestPosts.stream().map(p -> PostSummaryDto.builder()
+                .id(p.getId())
+                .title(p.getTitle())
+                .content(markdownService.convertMarkdownToPlaintext(p.getContent()))
+                .build()
+        ).toList();
     }
 
     @Override
