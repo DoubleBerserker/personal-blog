@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
-    List<PostSummaryProjection> findAllBy(Pageable pageable);
+    List<PostSummaryProjection> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
 }
