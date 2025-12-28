@@ -7,6 +7,7 @@ public interface MarkdownService {
     @Named(value = "toHtml")
     String convertMarkdownToHtml(String markdownText);
 
+    @Named(value = "toPlaintext")
     String convertMarkdownToPlaintext(String markdownText);
 
 }

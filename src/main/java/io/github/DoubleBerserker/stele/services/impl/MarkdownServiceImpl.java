@@ -6,6 +6,8 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.renderer.text.TextContentRenderer;
 import org.mapstruct.Named;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,12 @@ public class MarkdownServiceImpl implements MarkdownService {
     private final TextContentRenderer textContentRenderer = TextContentRenderer.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
 
+    private static final PolicyFactory HTML_SANITIZER = Sanitizers.FORMATTING
+            .and(Sanitizers.BLOCKS)
+            .and(Sanitizers.IMAGES)
+            .and(Sanitizers.LINKS)
+            .and(Sanitizers.STYLES);
+
     @Override
     @Named(value = "toHtml")
     public String convertMarkdownToHtml(String markdownText) {
@@ -23,7 +31,7 @@ public class MarkdownServiceImpl implements MarkdownService {
             return "";
 
         Node node = parser.parse(markdownText);
-        return renderer.render(node);
+        return HTML_SANITIZER.sanitize(renderer.render(node));
     }
 
     @Override

@@ -29,6 +29,8 @@ public class PostServiceImpl implements PostService {
     private final MarkdownService markdownService;
     private final PostMapper postMapper;
 
+    private final Integer MAX_POST_SUMMARY_LENGTH = 200;
+
     @Override
     @Transactional(readOnly = true)
     public PostResponseDto getPostById(String id) {
@@ -48,12 +50,12 @@ public class PostServiceImpl implements PostService {
         }
 
         Pageable pageable = PageRequest.of(0, numberOfPosts);
-        List<PostSummaryProjection> latestPosts = postRepository.findAllBy(pageable);
+        List<PostSummaryProjection> latestPosts = postRepository.findAllByOrderByCreatedAtDesc(pageable);
 
         return latestPosts.stream().map(p -> PostSummaryDto.builder()
                 .id(p.getId())
                 .title(p.getTitle())
-                .content(markdownService.convertMarkdownToPlaintext(p.getContent()))
+                .content(p.getContent().length() >= MAX_POST_SUMMARY_LENGTH ? markdownService.convertMarkdownToPlaintext(p.getContent()).substring(0, MAX_POST_SUMMARY_LENGTH) + "..." : markdownService.convertMarkdownToPlaintext(p.getContent()))
                 .build()
         ).toList();
     }
