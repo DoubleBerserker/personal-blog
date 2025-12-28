@@ -53,7 +53,7 @@ public class PostServiceImpl implements PostService {
         return latestPosts.stream().map(p -> PostSummaryDto.builder()
                 .id(p.getId())
                 .title(p.getTitle())
-                .content(markdownService.convertMarkdownToPlaintext(p.getContent()).substring(0, 200) + "...")
+                .content(p.getContent().length() >= 200 ? markdownService.convertMarkdownToPlaintext(p.getContent()).substring(0, 200) + "..." : markdownService.convertMarkdownToPlaintext(p.getContent()))
                 .build()
         ).toList();
     }
